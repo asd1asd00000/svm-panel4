@@ -54,7 +54,7 @@ case $main_choice in
             git pull
         else
             cd /root
-            git clone https://github.com/asd1asd00000/svm-panel.git
+            git clone https://github.com/asd1asd00000/svm-panel4.git
             cd /root/svm-panel
         fi
 
@@ -73,7 +73,7 @@ case $main_choice in
         # حذف کامل فایل‌های ماژول قبلی برای جلوگیری از تداخل و ساخت مجدد آن‌ها
         rm -f go.mod go.sum
         export GO111MODULE=on
-        go mod init github.com/asd1asd00000/svm-panel
+        go mod init github.com/asd1asd00000/svm-panel4
         
         # دانلود مستقیم پکیج‌های خارجی ضروری
         go get github.com/go-sql-driver/mysql
@@ -170,7 +170,7 @@ EOF
             git pull
         else
             cd /root
-            git clone https://github.com/asd1asd00000/svm-panel.git
+            git clone https://github.com/asd1asd00000/svm-panel4.git
             cd /root/svm-panel
         fi
 
