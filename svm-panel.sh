@@ -53,8 +53,9 @@ case $main_choice in
             git reset --hard
             git pull
         else
-            cd /root
-            git clone https://github.com/asd1asd00000/svm-panel4.git
+            # مقصد کلون به‌صورت صریح /root/svm-panel تعیین شده تا مستقل از اسم فعلی ریپازیتوری
+            # (که ممکنه svm-panel4 یا هر اسم دیگه‌ای باشه)، همیشه در همین مسیر قرار بگیره
+            git clone https://github.com/asd1asd00000/svm-panel4.git /root/svm-panel
             cd /root/svm-panel
         fi
 
@@ -69,16 +70,18 @@ case $main_choice in
 
         echo -e "${Green}[6/8] Downloading Go modules and compiling core binary...${Reset}"
         cd /root/svm-panel
-        
+
         # حذف کامل فایل‌های ماژول قبلی برای جلوگیری از تداخل و ساخت مجدد آن‌ها
         rm -f go.mod go.sum
         export GO111MODULE=on
-        go mod init github.com/asd1asd00000/svm-panel4
-        
+        # نام ماژول باید دقیقاً با importهای داخل کد (github.com/asd1asd00000/svm-panel/...) یکی باشه،
+        # نه اسم فعلی ریپازیتوری (svm-panel4)، وگرنه build با خطای package not found شکست می‌خوره
+        go mod init github.com/asd1asd00000/svm-panel
+
         # دانلود مستقیم پکیج‌های خارجی ضروری
         go get github.com/go-sql-driver/mysql
         go get golang.org/x/crypto/ssh
-        
+
         go mod tidy
         go build -o svm-panel main.go
         cp svm-panel /usr/local/bin/
@@ -153,7 +156,7 @@ EOF
         echo -e "${Yellow}\n--- Installing NODE Server Mode ---${Reset}"
         read -p "Enter MAIN Server Base URL (e.g., http://1.2.3.4:8080 or https://panel.com): " main_server_url
         read -p "Enter Cluster Security Token: " cluster_token
-        
+
         if [ -z "$main_server_url" ] || [ -z "$cluster_token" ]; then
             echo -e "${Red}❌ Error: URL and Token cannot be empty!${Reset}"
             exit 1
@@ -169,22 +172,23 @@ EOF
             git reset --hard
             git pull
         else
-            cd /root
-            git clone https://github.com/asd1asd00000/svm-panel4.git
+            # مقصد کلون به‌صورت صریح /root/svm-panel تعیین شده تا مستقل از اسم فعلی ریپازیتوری
+            # (که ممکنه svm-panel4 یا هر اسم دیگه‌ای باشه)، همیشه در همین مسیر قرار بگیره
+            git clone https://github.com/asd1asd00000/svm-panel4.git /root/svm-panel
             cd /root/svm-panel
         fi
 
         echo -e "${Yellow}⏳ Downloading Go modules and building Node executable...${Reset}"
         cd /root/svm-panel
-        
+
         # حذف کش و ساختاردهی مجدد پکیج‌ها برای نود
         rm -f go.mod go.sum
         export GO111MODULE=on
         go mod init github.com/asd1asd00000/svm-panel
-        
+
         go get github.com/go-sql-driver/mysql
         go get golang.org/x/crypto/ssh
-        
+
         go mod tidy
         go build -o svm-panel main.go
         cp svm-panel /usr/local/bin/
@@ -244,10 +248,10 @@ EOF
 
         rm -f /usr/local/bin/svm-panel
         hash -r
-        
+
         echo -e "${Red}⏳ Dropping database and users...${Reset}"
         mysql -u root -e "DROP DATABASE IF EXISTS svm_db;" || true
-        
+
         echo -e "${Red}⏳ Deleting deployment directories...${Reset}"
         rm -rf /root/svm-panel
 
