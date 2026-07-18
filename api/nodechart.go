@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/asd1asd00000/svm-panel/database"
+	"github.com/asd1asd00000/svm-panel4/database"
 )
 
 // registerNodeChartRoute مسیر نمایش نمودار مصرف تفکیکی هر نود را ثبت می‌کند
