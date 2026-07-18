@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/asd1asd00000/svm-panel/database"
-	"github.com/asd1asd00000/svm-panel/sshvpn"
+	"github.com/asd1asd00000/svm-panel4/database"
+	"github.com/asd1asd00000/svm-panel4/sshvpn"
 )
 
 // registerAgentRoutes مسیرهایی که نودها/کلاینت‌های سرور اصلی برای همگام‌سازی کاربران و ترافیک استفاده می‌کنند را ثبت می‌کند
